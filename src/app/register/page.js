@@ -17,6 +17,7 @@ import {ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import { green, purple } from '@mui/material/colors';
 
+
 export default function Page() {
 
 
@@ -32,14 +33,13 @@ export default function Page() {
     const data = await res.json();
 
  
-    if(data.data== "true"){
-      console.log("login is valid!")
-      window.location="/dashboard";
+    if(data.data== "valid"){
+      console.log("Registration Successfull!")
 
       
     } else {
 
-      console.log("not valid  ")
+      console.log("Erro registration unsuccessful  ")
     }
   }
 
@@ -60,14 +60,22 @@ export default function Page() {
 
 
     let email = data.get('email')
-		let pass = data.get('pass')
+	  let pass = data.get('pass')
+    let repeatPass = data.get('repeatPass')
+    let username = data.get('username')
+	  let address = data.get('address')
+    let dob = data.get('dob')
 
     console.log("Sent email:" + email)
     console.log("Sent pass:" + pass)
+    console.log("Sent Repeat Pass:" + repeatPass)
+    console.log("Sent username:" + username)
+    console.log("Sent address:" + address)
+  
+    console.log("Sent dob:" + dob)
 
 
-    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
-
+    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&repeatPass=${repeatPass}&username=${username}&address=${address}}&dob=${dob}`)
 
 
 
@@ -87,8 +95,6 @@ export default function Page() {
   });
   
 
-
-
   
   return (
     <ThemeProvider theme={theme}>
@@ -106,9 +112,19 @@ export default function Page() {
           
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Register
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+        <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="username"
+            label="User Name"
+            type="text"
+            id="username"
+          />
           <TextField
             margin="normal"
             required
@@ -127,33 +143,55 @@ export default function Page() {
             label="Pass"
             type="pass"
             id="pass"
-            autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
+
+          <TextField
+            margin="normal"
+            required
             fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
+            name="pass"
+            label="Reapeat Pass"
+            type="pass"
+            id="repeatPass"
+          />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="dob"
+              label="dob"
+              type="text"
+              id="dob"
+              autoComplete=""
+            />
+         <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="address"
+            label="Address"
+            type="text"
+            id="address"
+          />    
+         <FormControlLabel
+control={<Checkbox value="remember" color="primary" />}
+label="Remember me"
+/>
+<Button
+type="submit"
+fullWidth
+variant="contained"
+sx={{ mt: 3, mb: 2 }}
+>
+Register
+</Button>      
 
-
-
-
+          
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+           
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Already have an account? Log in!"}
               </Link>
             </Grid>
           </Grid>
