@@ -13,7 +13,7 @@ export async function GET(req, res) {
 
   // database call goes here
   const { MongoClient } = require('mongodb');
-  const url = 'mongodb+srv://betsunaidzeb:Pls45StopThis45@?@cluster0.vgnfxgh.mongodb.net/?retryWrites=true&w=majority';
+  const url = 'mongodb+srv://betsunaidzeb:Fgfhfj123@cluster0.vgnfxgh.mongodb.net?retryWrites=true&w=majority';
   const client = new MongoClient(url);
   
 
