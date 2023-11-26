@@ -10,8 +10,6 @@ export async function GET(req, res) {
   const email = searchParams.get('email')
   const pass = searchParams.get('pass')
 
-  console.log(email);
-  console.log(pass);
 
   // database call goes here
   const { MongoClient } = require('mongodb');

@@ -18,27 +18,18 @@ import { useState, useEffect } from 'react';
 
 export default function Page() {
 
-    function putInCart(pname, price){
-        console.log("putting in cart: " + pname)
-        fetch(`http://localhost:3000/api/putInCart?pname=${pname}&price=${price}`);
-    }
 
     const [data, setData] = useState(null)
-    const [weather, setWeatherData] = useState(0)
+
     useEffect(() => {
-        fetch('http://localhost:3000/api/getProducts')
+        fetch('http://localhost:3000/api/getCart')
         .then((res) => res.json())
         .then((data) => {
             setData(data)
         })
-        fetch('http://localhost:3000/api/getWeather')
-        .then((res) => res.json())
-        .then((weather) => {
-            setWeatherData(weather)
-        })
     }, [])
-    if(!weather) return <p>No Weather</p>
     if (!data) return <p>Loading</p>
+    if (data.length === 0) return <p style={{fontSize: '40px', display:'flex',justifyContent:'center'}}>cart is emepty</p>
     const theme = createTheme({
     palette: {
     secondary: {
@@ -48,27 +39,22 @@ export default function Page() {
     });
 
     return (
-    <ThemeProvider theme={theme}>
-        Today's temperature: {JSON.stringify(weather.temp)}
-    <Container component="main" maxWidth="xs">
-    <div style={{fontSize: '40px'}} > Dashboard</div>
-     <div>
-         {
-            data.map((item, i) => (
-            <div style={{padding: '20px'}} key={i} >
-    Unique ID: {item._id}
-    <br></br>
-    {item.pname}
-    -
-    {item.price}
-    <br></br>
-    <Button onClick={() => putInCart(item.pname, item.price)} variant="outlined"> Add to cart </Button>
-    </div>
-    ))
-    }
-    </div>
-    
-</Container>
-</ThemeProvider>
-);
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <div style={{fontSize: '40px'}}>Cart
+                
+                </div>
+                <div>
+                    {data.map((item, i) => (
+                        <div style={{padding: '20px'}} key={i}>
+                            Unique ID: {item._id}
+                            <br></br>
+                            {item.pname} - {item.price}
+                            <br></br>
+                        </div>
+                    ))}
+                </div>
+            </Container>
+        </ThemeProvider>
+    );
 }

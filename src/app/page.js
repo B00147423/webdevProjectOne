@@ -67,10 +67,6 @@ export default function Page() {
 
 
     runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
-
-
-
-
   }; // end handler
 
 
