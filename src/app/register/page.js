@@ -75,7 +75,7 @@ export default function Page() {
     console.log("Sent dob:" + dob)
 
 
-    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&repeatPass=${repeatPass}&username=${username}&address=${address}}&dob=${dob}`)
+    runDBCallAsync(`api/register?email=${email}&pass=${pass}&repeatPass=${repeatPass}&username=${username}&address=${address}}&dob=${dob}`)
 
 
 
